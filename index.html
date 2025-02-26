@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Store App Recommender</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 600px;
+      margin: 20px auto;
+      padding: 20px;
+    }
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+    label {
+      display: block;
+      margin: 10px 0 5px;
+      font-weight: bold;
+    }
+    input {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      box-sizing: border-box;
+    }
+    button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    #result {
+      margin-top: 20px;
+      padding: 10px;
+      border: 1px solid #ddd;
+      background-color: #f9f9f9;
+    }
+  </style>
+</head>
+<body>
+  <h2>Store App Recommender</h2>
+  <form id="storeForm" onsubmit="recommendApps(event)">
+    <label for="orders">Monthly Orders:</label>
+    <input type="number" id="orders" min="0" required placeholder="Enter number of orders">
+
+    <label for="customers">Total Customers:</label>
+    <input type="number" id="customers" min="0" required placeholder="Enter number of customers">
+
+    <label for="aov">Average Order Value ($):</label>
+    <input type="number" id="aov" min="0" step="0.01" required placeholder="Enter AOV in dollars">
+
+    <button type="submit">Get Recommended Apps</button>
+  </form>
+
+  <div id="result"></div>
+
+  <script>
+    function recommendApps(event) {
+      event.preventDefault();
+
+      // Get input values
+      let orders = parseInt(document.getElementById("orders").value);
+      let customers = parseInt(document.getElementById("customers").value);
+      let aov = parseFloat(document.getElementById("aov").value);
+
+      // Array to store recommendations
+      let recommendations = [];
+
+      // Example app recommendation logic (modify as needed)
+      if (aov < 30) {
+        recommendations.push("App A - Increases low Average Order Value");
+      }
+      if (customers > 100) {
+        recommendations.push("App B - Improves customer retention");
+      }
+      if (orders > 500) {
+        recommendations.push("App C - Streamlines high order volumes");
+      }
+      if (orders < 50 && aov > 50) {
+        recommendations.push("App D - Boosts sales for small, high-value stores");
+      }
+
+      // Display results
+      let resultDiv = document.getElementById("result");
+      if (recommendations.length > 0) {
+        resultDiv.innerHTML = "<strong>Recommended Apps:</strong><br>" + recommendations.join("<br>");
+      } else {
+        resultDiv.innerHTML = "No apps match your store's criteria based on the provided data.";
+      }
+    }
+  </script>
+</body>
+</html>
